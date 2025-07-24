@@ -1,0 +1,21 @@
+name: Daily Portfolio Heat Map
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # 5:30 PM IST
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install yfinance seaborn matplotlib pandas
+      - name: Run heatmap script
+        run: python daily_report.py
+      # Optionally add steps to email/message your report
